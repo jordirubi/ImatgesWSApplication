@@ -16,7 +16,7 @@
         <div>
             <h1 id="headerRegistreImatge">Registrar imatge</h1>
             <p id="dades"><strong>Introdueix les dades que es demanen a continuació</strong></p>
-            <form method="post" action="registrarRequest" id="registrarImatge" enctype="multipart/form-data">
+            <form method="post" action="registreServlet.java" id="registrarImatge" enctype="multipart/form-data">
                 <label for="titol"><br>Títol:<br></label>
                 <input type="text" name="titol" id="titol">
                 <br>
@@ -34,48 +34,6 @@
                 <input type="submit" name="registrar" id="registrar" value="Registrar">
                 <input type="reset" name="netejar" id="netejarQuestionari" value="Esborrar dades">
             </form>
-        </div>
-        
-        
-        <div id="registrarRequest">   
-                    <%-- start web service invocation --%><hr/>
-            <%
-            try {
-                org.me.imatge.ImatgeWS_Service service = new org.me.imatge.ImatgeWS_Service();
-                org.me.imatge.ImatgeWS port = service.getImatgeWSPort();
-                 // TODO initialize WS operation arguments here
-                 
-                 String titol = request.getParameter("titol");
-                 String descripcio = request.getParameter("descripcio");
-                 String autor = request.getParameter("autor");
-                 String keywords = request.getParameter("clau");
-                 String data = request.getParameter("creacio");
-
-                 Random rand = new Random();
-                 int  id = rand.nextInt(100) + 1;
-                 
-                org.me.imatge.Imatge imatge = null;
-                
-                imatge.setId(id);
-                imatge.setTitol(titol);
-                imatge.setDescripcio(descripcio);
-                imatge.setAutor(autor);
-                imatge.setKeywords(keywords);
-                imatge.setDataCreacio(data);
-                
-                // TODO process result here
-                int result = port.registreImatge(imatge);
-                
-                if (result == 1) {
-                    out.println("<h1>Usuari registrat amb èxit</h1>");
-                } else {
-                    out.println("<h1>Error al registrar l'usuari</h1>");
-                }
-            } catch (Exception ex) {
-                out.println("<h1>Error al registrar l'usuari</h1>");
-            }
-            %>
-            <%-- end web service invocation --%><hr/>
         </div>
     </body>
 </html>
